@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-02T09:15:02.144Z",
-  "buildHash": "fd020cac9662",
+  "generated": "2026-03-27T08:10:12.060Z",
+  "buildHash": "794a362b08ba",
   "roles": {
     "technician": {
       "displayName": "Technician / Partner",

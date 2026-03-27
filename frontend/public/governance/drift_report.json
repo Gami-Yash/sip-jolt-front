@@ -1,0 +1,21 @@
+{
+  "generated": "2026-03-02T09:15:02.163Z",
+  "summary": {
+    "totalViolations": 0,
+    "criticalCount": 0,
+    "warningCount": 0,
+    "passCI": true
+  },
+  "critical": [],
+  "warnings": [],
+  "rules": {
+    "NO_DEV_BYPASS": "Development bypasses are forbidden in production code",
+    "NO_OPTIONAL_PROOF": "Mandatory proofs cannot be marked optional",
+    "NO_HIDDEN_CODE": "Hardcoded credentials are forbidden",
+    "NO_SKIP_VALIDATION": "Validation cannot be conditionally disabled",
+    "NO_TENANT_LEAK": "Cross-tenant data access must be blocked",
+    "TODO_SECURITY": "Security-related TODOs should be resolved",
+    "FIXME_AUTH": "Auth-related FIXMEs should be resolved",
+    "LOG_SENSITIVE": "Sensitive data should not be logged"
+  }
+}

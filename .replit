@@ -1,0 +1,50 @@
+modules = ["nodejs-20", "postgresql-16"]
+
+[nix]
+channel = "stable-25_05"
+packages = ["imagemagick", "optipng", "chromium", "unzip"]
+
+[agent]
+integrations = ["javascript_gemini:1.0.0", "javascript_database:1.0.0", "javascript_object_storage:2.0.0"]
+mockupState = "FULLSTACK"
+expertMode = true
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "JOLT Service App"
+
+[[workflows.workflow]]
+name = "JOLT Service App"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build && node server.js"
+waitForPort = 5000
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+
+[deployment]
+run = ["node", "server.js"]
+deploymentTarget = "autoscale"
+build = ["npm", "run", "build"]
+
+[userenv]
+
+[userenv.shared]
+OPS_AUTH_TOKEN = "4782"
+VITE_GEMINI_API_KEY = "$GEMINI_API_KEY"

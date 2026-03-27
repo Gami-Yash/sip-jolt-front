@@ -1,0 +1,39 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "node scripts/content-governance.js && vite build",
+    "build:content": "node scripts/content-governance.js",
+    "preview": "vite preview",
+    "ci:drift": "node scripts/content-governance.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@imagekit/react": "^5.0.1",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@uppy/aws-s3": "^5.1.0",
+    "@uppy/core": "^5.2.0",
+    "@uppy/dashboard": "^5.1.0",
+    "@uppy/react": "^5.1.1",
+    "@vitejs/plugin-react": "^5.1.1",
+    "autoprefixer": "^10.4.22",
+    "canvas-confetti": "^1.9.4",
+    "firebase": "^12.6.0",
+    "framer-motion": "^12.27.5",
+    "html2canvas": "^1.4.1",
+    "lucide-react": "^0.555.0",
+    "postcss": "^8.5.6",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.17",
+    "vite": "^7.2.4"
+  },
+  "type": "module"
+}

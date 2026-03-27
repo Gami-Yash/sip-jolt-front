@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIPJOLT Operations Manual - PART VII: Gate5 Shipping Framework v100</title>
+  <style>
+    :root {
+      --primary: #1E3A5F;
+      --primary-light: #2D5A8A;
+      --accent: #0D7377;
+      --zone-a: #DC2626;
+      --zone-b: #16A34A;
+      --zone-c: #EAB308;
+      --zone-d: #6B7280;
+      --zone-e: #2563EB;
+      --text-dark: #1F2937;
+      --text-medium: #4B5563;
+      --text-light: #6B7280;
+      --border: #E5E7EB;
+      --border-dark: #D1D5DB;
+      --bg-callout: #F0FDF4;
+      --bg-warning: #FEF3C7;
+      --bg-light: #F9FAFB;
+      --bg-section: #F3F4F6;
+      --safe-mode: #DC2626;
+      --active: #16A34A;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @page { size: 8.5in 11in; margin: 0.75in; }
+    
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10pt;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: white;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.5in;
+    }
+    
+    .mono { font-family: 'Courier New', monospace; font-size: 9pt; }
+    
+    h1 { font-size: 16pt; font-weight: 700; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 8px; margin-bottom: 12px; }
+    h2 { font-size: 12pt; font-weight: 600; margin-top: 18px; margin-bottom: 10px; color: var(--primary); border-left: 3px solid var(--accent); padding-left: 10px; }
+    h3 { font-size: 11pt; font-weight: 600; margin-top: 14px; margin-bottom: 8px; color: var(--text-dark); }
+    p { margin-bottom: 10px; }
+    
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 9pt; }
+    th, td { border: 1px solid var(--border-dark); padding: 8px 10px; text-align: left; }
+    th { background: var(--bg-section); font-weight: 600; color: var(--primary); }
+    
+    .zone-label { display: inline-block; padding: 3px 10px; font-weight: 600; font-size: 8pt; border-radius: 3px; min-width: 55px; text-align: center; }
+    .zone-a { background: #FEE2E2; color: #991B1B; border: 1px solid #DC2626; }
+    .zone-b { background: #D1FAE5; color: #065F46; border: 1px solid #16A34A; }
+    .zone-c { background: #FEF3C7; color: #92400E; border: 1px solid #EAB308; }
+    .zone-d { background: #F3F4F6; color: #374151; border: 1px solid #6B7280; }
+    .zone-e { background: #DBEAFE; color: #1E40AF; border: 1px solid #2563EB; }
+    
+    .callout-box { background: var(--bg-light); border-left: 3px solid var(--accent); padding: 12px 14px; margin: 14px 0; font-size: 9pt; border-radius: 0 4px 4px 0; }
+    .mandatory-box { background: #FEE2E2; border: 2px solid #DC2626; border-radius: 4px; padding: 12px; margin: 12px 0; }
+    .mandatory-box strong { color: #991B1B; }
+    .v100-box { background: #EDE9FE; border: 2px solid #7C3AED; border-radius: 4px; padding: 12px; margin: 12px 0; }
+    .v100-box strong { color: #5B21B6; }
+    
+    ol, ul { margin: 10px 0 10px 20px; }
+    li { margin-bottom: 5px; }
+    
+    .part-header { background: var(--primary); color: white; padding: 10px 14px; margin: 24px 0 16px 0; font-size: 11pt; font-weight: 600; border-radius: 4px; }
+    .spec-box { background: var(--bg-section); border: 1px solid var(--border-dark); padding: 10px 14px; margin: 10px 0; font-size: 9pt; border-radius: 4px; }
+    .gate-item { background: var(--bg-light); border: 1px solid var(--border); padding: 8px 12px; margin: 6px 0; border-radius: 4px; }
+    .gate-item strong { color: var(--primary); }
+    .procedure-step { background: #F0FDF4; border: 1px solid #0D7377; padding: 8px 12px; margin: 4px 0; border-radius: 4px; font-size: 9pt; }
+    .procedure-step-number { display: inline-block; width: 22px; height: 22px; background: #0D7377; color: white; border-radius: 50%; text-align: center; line-height: 22px; font-weight: 600; font-size: 9pt; margin-right: 8px; }
+    
+    @media print { body { padding: 0; } .page-break { page-break-before: always; } .no-break { page-break-inside: avoid; } }
+  </style>
+</head>
+<body>
+
+<div class="part-header page-break">PART VII: GATE5 SHIPPING FRAMEWORK v100</div>
+
+<h1>Overview: The 60/90 Split Delivery System</h1>
+
+<div class="v100-box">
+  <strong>GATE5 v100 STRATEGIC MODEL:</strong> Split delivery system optimized for landlord relationship management and PARTNER_TECHNICIAN workload reduction. Two separate delivery streams with 30-day offset ensure never more than 6 boxes per delivery (except 2 collision days per year).
+</div>
+
+<p><strong>Delivery Philosophy:</strong> Separate consumable ingredients (60-day fast cycle) from durable goods (90-day slow cycle). Complete ingredient sets ship together maintaining operational integrity while keeping delivery footprint manageable for building relationships.</p>
+
+<h2>1. THE TWO DELIVERY STREAMS</h2>
+
+<h3>Stream 1: Ingredient Shipment (60-Day Cycle)</h3>
+
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Specification</th>
+  </tr>
+  <tr>
+    <td>Frequency</td>
+    <td>Every 60 days (6 deliveries per year per site)</td>
+  </tr>
+  <tr>
+    <td>Timing</td>
+    <td>Day 0, 60, 120, 180, 240, 300, 360</td>
+  </tr>
+  <tr>
+    <td>Box count</td>
+    <td>6 boxes (BOX A, B1, B2, B3/C2, C1/C3, D)</td>
+  </tr>
+  <tr>
+    <td>Total weight</td>
+    <td>~200 lbs (average 33 lbs per box)</td>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>Complete 60-day consumable ingredient set</td>
+  </tr>
+  <tr>
+    <td>Hub processing</td>
+    <td>5-Gate QC required for all 6 boxes</td>
+  </tr>
+</table>
+
+<h3>Stream 2: Cup Shipment (90-Day Cycle, 30-Day Offset)</h3>
+
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Specification</th>
+  </tr>
+  <tr>
+    <td>Frequency</td>
+    <td>Every 90 days (4 deliveries per year per site)</td>
+  </tr>
+  <tr>
+    <td>Timing</td>
+    <td>Day 30, 120, 210, 300 (offset by +30 days)</td>
+  </tr>
+  <tr>
+    <td>Box count</td>
+    <td>4 factory-sealed boxes (CARTON E)</td>
+  </tr>
+  <tr>
+    <td>Total weight</td>
+    <td>~13 lbs (500 cups per box)</td>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>2,000 paper cups (12.86 weeks supply at 150 cups/week)</td>
+  </tr>
+  <tr>
+    <td>Hub processing</td>
+    <td>Bypass 5-Gate QC (factory sealed, direct pickup)</td>
+  </tr>
+</table>
+
+<div class="callout-box">
+  <strong>Collision Days:</strong> Day 120 and Day 300 both delivery streams align (LCM of 60 and 90 = 180 days). On these 2 days per year: 6 ingredient boxes + 4 cup boxes = 10 boxes total. This is acceptable as it occurs only 20% of cup deliveries. See Section 8 for collision day protocol.
+</div>
+
+<h2>2. THE 6-BOX INGREDIENT SHIPMENT (60-Day Cycle)</h2>
+
+<p><strong>Philosophy:</strong> Complete ingredient sets ensure 60-day operational continuity. All consumables ship together—no partial deliveries, no split cycles for perishables.</p>
+
+<h3>BOX A: Liquid Syrups <span class="zone-label zone-a">ZONE A</span></h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Detail</th>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>4 syrup jugs (64 oz each) with Safety Red Solid Shipping Caps</td>
+  </tr>
+  <tr>
+    <td>Weight</td>
+    <td>~40 lbs (at 40 lb limit for testing phase)</td>
+  </tr>
+  <tr>
+    <td>Destination</td>
+    <td>Shelf 1 (RED zone), Left bin only (4 jugs). Right bin reserved for future expansion.</td>
+  </tr>
+  <tr>
+    <td>Bin Configuration</td>
+    <td>2 white bins required on Shelf 1: Left bin (active, 4 jugs) + Right bin (reserved for BOX A2 expansion to 8 jugs)</td>
+  </tr>
+  <tr>
+    <td>Protocol</td>
+    <td>Liquid Fortress 2.0 (individual poly bag containment per jug)</td>
+  </tr>
+  <tr>
+    <td>Future scaling</td>
+    <td>When consumption validates 8-jug need: Split into BOX A1 (4 jugs, Left bin) + BOX A2 (4 jugs, Right bin)</td>
+  </tr>
+</table>
+
+<div class="callout-box">
+  <strong>Why 2 Bins on Shelf 1?</strong> Current configuration uses only Left bin (4 jugs). Right bin remains empty but is installed from Day 1 to enable seamless scaling to 8 jugs without site hardware changes. This future-proofs the system and provides secondary leak containment capacity. Both bins must be installed initially even if Right bin is unused.
+</div>
+
+<div class="mandatory-box">
+  <strong>LIQUID FORTRESS 2.0 REQUIRED:</strong> Each syrup jug must be individually bagged in sealed 6mm heavy-duty poly bag. If jug leaks during transit, poly bag contains entire volume. See Section 3 for detailed packing sequence.
+</div>
+
+<h3>BOX B1: Oat Powder <span class="zone-label zone-b">ZONE B</span></h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Detail</th>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>9 Oat Powder bags (1-2kg each) + Oxygen absorbers (500cc, one per bag)</td>
+  </tr>
+  <tr>
+    <td>Weight</td>
+    <td>~40 lbs</td>
+  </tr>
+  <tr>
+    <td>Destination</td>
+    <td>Shelf 2 LEFT bin (GREEN zone)</td>
+  </tr>
+  <tr>
+    <td>Protocol</td>
+    <td>Freshness Lock - verify O₂ absorber presence before sealing</td>
+  </tr>
+</table>
+
+<h3>BOX B2: Dairy Powder <span class="zone-label zone-b">ZONE B</span></h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Detail</th>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>7 Dairy Powder bags (1-2kg each)</td>
+  </tr>
+  <tr>
+    <td>Weight</td>
+    <td>~31 lbs</td>
+  </tr>
+  <tr>
+    <td>Destination</td>
+    <td>Shelf 2 CENTER bin (GREEN zone)</td>
+  </tr>
+  <tr>
+    <td>Protocol</td>
+    <td>Standard powder pack, seal audit</td>
+  </tr>
+</table>
+
+<h3>BOX B3/C2: Coffee + Chai (L-Shaped Pack) <span class="zone-label zone-b">ZONE B</span> <span class="zone-label zone-c">ZONE C</span></h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Detail</th>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>Coffee bags + Chai bags (L-shaped configuration)</td>
+  </tr>
+  <tr>
+    <td>Weight</td>
+    <td>~34 lbs</td>
+  </tr>
+  <tr>
+    <td>Destination</td>
+    <td>Shelf 2 RIGHT bin (Coffee, GREEN) + Shelf 3 CENTER bin (Chai, YELLOW)</td>
+  </tr>
+  <tr>
+    <td>Protocol</td>
+    <td>Two-shelf split - PARTNER_TECHNICIAN distributes contents to both bins</td>
+  </tr>
+</table>
+
+<h3>BOX C1/C3: Matcha + Cocoa (Skip-Center) <span class="zone-label zone-c">ZONE C</span></h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Detail</th>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>Matcha bags + Cocoa bags (skip-center packing pattern)</td>
+  </tr>
+  <tr>
+    <td>Weight</td>
+    <td>~31 lbs</td>
+  </tr>
+  <tr>
+    <td>Destination</td>
+    <td>Shelf 3 LEFT bin (Matcha, YELLOW) + Shelf 3 RIGHT bin (Cocoa, YELLOW)</td>
+  </tr>
+  <tr>
+    <td>Protocol</td>
+    <td>Skip center position - PARTNER_TECHNICIAN distributes to L+R bins only</td>
+  </tr>
+</table>
+
+<h3>BOX D: Maintenance & Consumables <span class="zone-label zone-d">ZONE D</span></h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Detail</th>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>4 Sugar tubs (Domino Baker's 3.5 lb) + 1 Cleaning kit + 700 Disposable Cup Lids (customer-facing)</td>
+  </tr>
+  <tr>
+    <td>Weight</td>
+    <td>~24 lbs (14 lbs sugar + 5 lbs cleaning + 5 lbs lids)</td>
+  </tr>
+  <tr>
+    <td>Destination</td>
+    <td>Shelf 4: Sugar (LEFT bin), Cleaning (CENTER bin), Disposable Lids (RIGHT bin)</td>
+  </tr>
+  <tr>
+    <td>Protocol</td>
+    <td>Standard pack - lightest box in shipment</td>
+  </tr>
+  <tr>
+    <td>Note</td>
+    <td>Lids are for customer drinks (disposable), NOT syrup jug caps (which stay on jugs)</td>
+  </tr>
+</table>
+
+<div class="callout-box">
+  <strong>BOX D Lid Specification:</strong> 700 disposable cup lids (plastic dome lids for customer beverages) for 60-day supply at 85 lids/week average usage. These are delivered in sleeves - exact sleeve count pending supplier confirmation (likely 5-7 sleeves depending on lids per sleeve). Do not confuse with Safety Red Caps used on syrup jugs in BOX A.
+</div>
+
+<h2>3. LIQUID FORTRESS 2.0 PACKING PROTOCOL (BOX A)</h2>
+
+<p><strong>Objective:</strong> Zero liquid escape. Each jug contained independently so single jug failure does not compromise entire shipment.</p>
+
+<div class="procedure-step"><span class="procedure-step-number">1</span> <strong>SEAL LID:</strong> Apply induction/heat seal to bottle lid using sealing machine. Verify seal integrity visually.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">2</span> <strong>TIP TEST:</strong> Tip bottle 45° for 3 seconds. Check for drips at seal interface. If drip detected → reject jug, do not pack.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">3</span> <strong>BAG JUG:</strong> Place jug into individual 6mm heavy-duty poly bag. Bag must be clean, no punctures.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">4</span> <strong>SEAL BAG:</strong> Seal poly bag completely using heat sealer. No gaps, no openings. Bag acts as secondary containment.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">5</span> <strong>PACK INTO BOX:</strong> Place bagged jug into BOX A with bottom corrugated liner (16×12) already in place. Do not nest jugs tightly—allow slight spacing.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">6</span> <strong>REPEAT:</strong> Repeat steps 1-5 for each jug. Check cumulative weight after each jug added. Stop at 40 lbs (testing phase) or when reaching 4 jugs, whichever comes first.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">7</span> <strong>ADD VOID-CAP:</strong> Place 4" corrugated void-cap on top of jugs for uniform compression during shipping.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">8</span> <strong>FINAL WEIGH:</strong> Verify final weight ≤ 40 lbs before sealing box. Record weight in QC log (Gate 3).</div>
+
+<div class="mandatory-box">
+  <strong>CAP RULE:</strong> Solid Shipping Caps ONLY (Safety Red). Service Caps (White with pump spout) are a "Hard Fail" during transit. White caps may leak under pressure changes. Always verify red caps before packing.
+</div>
+
+<h2>4. THE 4-BOX CUP SHIPMENT (90-Day Cycle)</h2>
+
+<h3>CARTON E: Paper Cups <span class="zone-label zone-e">ZONE E</span></h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Detail</th>
+  </tr>
+  <tr>
+    <td>Contents</td>
+    <td>2,000 paper cups (4 factory boxes × 500 cups per box)</td>
+  </tr>
+  <tr>
+    <td>Weight</td>
+    <td>~13 lbs total (4 boxes)</td>
+  </tr>
+  <tr>
+    <td>Destination</td>
+    <td>Floor, BLUE zone, next to machine (not under rack - insufficient clearance)</td>
+  </tr>
+  <tr>
+    <td>Floor Layout</td>
+    <td>2×2 stack arrangement: 2 boxes on bottom row, 2 boxes stacked on top</td>
+  </tr>
+  <tr>
+    <td>Footprint</td>
+    <td>~24"W × 24"D × 36"H (2 ft × 2 ft floor space when stacked)</td>
+  </tr>
+  <tr>
+    <td>Frequency</td>
+    <td>Every 90 days, offset by +30 days from ingredient cycle</td>
+  </tr>
+  <tr>
+    <td>Timing</td>
+    <td>Day 30, 120, 210, 300 (annual schedule)</td>
+  </tr>
+  <tr>
+    <td>Hub processing</td>
+    <td>BYPASS 5-Gate QC - factory sealed, no Hub packing required</td>
+  </tr>
+</table>
+
+<p><strong>Supply Calculation Validation:</strong></p>
+<ul>
+  <li>Standard consumption: 150 cups/week</li>
+  <li>90 days ÷ 7 days/week = 12.86 weeks</li>
+  <li>12.86 weeks × 150 cups/week = 1,929 cups needed</li>
+  <li>Supplied: 2,000 cups</li>
+  <li>Coverage: 103.7% (71-cup buffer = 3.5% safety margin)</li>
+</ul>
+
+<div class="callout-box">
+  <strong>Floor Storage Note:</strong> Cup boxes MUST be stored on floor next to machine (within BLUE tape boundary), NOT under rack. HDX rack bottom shelf clearance is insufficient for 36" cup stack height. The 2×2 floor stack requires approximately 2 sq ft of floor space adjacent to the 4 ft × 1.5 ft rack footprint.
+</div>
+
+<div class="callout-box">
+  <strong>Driver Efficiency Note:</strong> Cup shipments are fastest deliveries. Factory-sealed boxes picked up from supplier staging area, delivered directly to site floor. No Hub stop, no QC gates, no repackaging. PARTNER_TECHNICIAN simply stacks 4 boxes in 2×2 arrangement on floor within BLUE tape boundary next to machine.
+</div>
+
+<h2>5. SITE HARDWARE: THE 11-BIN STORAGE SYSTEM</h2>
+
+<p><strong>Standard Rack:</strong> HDX 4-Shelf Wire Rack (48"W × 18"D × 72"H)</p>
+<p><strong>Bin Standard:</strong> Walmart Mainstays Open Front Stacking Bin, White (17"W × 14"D × 6"H)</p>
+<p><strong>Total Bins Required:</strong> 11 bins</p>
+<p><strong>Floor Space Requirement:</strong> Rack (6 sq ft) + Cup boxes on floor (4 sq ft) = 10 sq ft total footprint</p>
+
+<h3>Bin Allocation by Shelf</h3>
+
+<table>
+  <tr>
+    <th>Shelf</th>
+    <th>Zone</th>
+    <th>Color</th>
+    <th>Position</th>
+    <th>Bin Contents</th>
+    <th>Label Text</th>
+  </tr>
+  <tr style="background: #FEE2E2;">
+    <td rowspan="2"><strong>Shelf 1</strong></td>
+    <td rowspan="2">A</td>
+    <td rowspan="2">RED</td>
+    <td>Left</td>
+    <td>4 syrup jugs (Bin 1) - ACTIVE</td>
+    <td>SYRUPS <span style="font-size: 8pt;">L</span></td>
+  </tr>
+  <tr style="background: #FEE2E2;">
+    <td>Right</td>
+    <td>Reserved for expansion (Bin 2) - EMPTY until BOX A2 added</td>
+    <td>SYRUPS <span style="font-size: 8pt;">R</span></td>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td rowspan="3"><strong>Shelf 2</strong></td>
+    <td rowspan="3">B</td>
+    <td rowspan="3">GREEN</td>
+    <td>Left</td>
+    <td>9 Oat bags (Bin 3)</td>
+    <td>OAT <span style="font-size: 8pt;">L</span></td>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td>Center</td>
+    <td>7 Dairy bags (Bin 4)</td>
+    <td>DAIRY <span style="font-size: 8pt;">C</span></td>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td>Right</td>
+    <td>Coffee bags (Bin 5)</td>
+    <td>COFFEE <span style="font-size: 8pt;">R</span></td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td rowspan="3"><strong>Shelf 3</strong></td>
+    <td rowspan="3">C</td>
+    <td rowspan="3">YELLOW</td>
+    <td>Left</td>
+    <td>Matcha bags (Bin 6)</td>
+    <td>MATCHA <span style="font-size: 8pt;">L</span></td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td>Center</td>
+    <td>Chai bags (Bin 7)</td>
+    <td>CHAI <span style="font-size: 8pt;">C</span></td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td>Right</td>
+    <td>Cocoa bags (Bin 8)</td>
+    <td>COCOA <span style="font-size: 8pt;">R</span></td>
+  </tr>
+  <tr style="background: #F3F4F6;">
+    <td rowspan="3"><strong>Shelf 4</strong></td>
+    <td rowspan="3">D</td>
+    <td rowspan="3">GRAY</td>
+    <td>Left</td>
+    <td>4 Sugar tubs (Bin 9)</td>
+    <td>SUGAR <span style="font-size: 8pt;">L</span></td>
+  </tr>
+  <tr style="background: #F3F4F6;">
+    <td>Center</td>
+    <td>Cleaning kit (Bin 10)</td>
+    <td>CLEANING <span style="font-size: 8pt;">C</span></td>
+  </tr>
+  <tr style="background: #F3F4F6;">
+    <td>Right</td>
+    <td>700 disposable cup lids (Bin 11)</td>
+    <td>LIDS <span style="font-size: 8pt;">R</span></td>
+  </tr>
+  <tr style="background: #DBEAFE;">
+    <td><strong>Floor</strong></td>
+    <td>E</td>
+    <td>BLUE</td>
+    <td>Next to machine</td>
+    <td>2,000 cups (4 factory boxes in 2×2 stack, no bins)</td>
+    <td>CUPS — 2,000 (90-DAY)</td>
+  </tr>
+</table>
+
+<h3>Why 11 Bins? (Updated from v95's 9-Bin System)</h3>
+
+<p><strong>v100 Addition:</strong> Two bins added to Shelf 1 for syrup storage.</p>
+
+<p><strong>Rationale:</strong></p>
+<ol>
+  <li><strong>Leak Containment:</strong> Syrups in bins provide secondary spill containment even with Liquid Fortress 2.0 bagging</li>
+  <li><strong>Future-Proof Capacity:</strong> Two bins × 4 jugs each = 8 jug total capacity when scaling BOX A</li>
+  <li><strong>Current Usage:</strong> Left bin active (4 jugs), Right bin empty but installed for future expansion</li>
+  <li><strong>Low Profile:</strong> 6"H bins keep jugs visible and accessible while providing base protection</li>
+  <li><strong>Visual Consistency:</strong> All ingredients in white bins creates uniform professional appearance</li>
+  <li><strong>Handling Safety:</strong> Bins prevent jugs from tipping during refill operations</li>
+</ol>
+
+<div class="v100-box">
+  <strong>v100 UPDATE:</strong> Shelf 1 now requires 2 white Walmart Mainstays bins (same as Shelves 2-4). Currently only Left bin is used (4 jugs), Right bin remains empty until BOX A2 expansion is approved. This increases total site hardware cost by ~$11 one-time (one extra bin). All 11 bins are identical model for simplified ordering and replacement.
+</div>
+
+<h3>Floor Storage Layout</h3>
+
+<p><strong>Cup Box Configuration:</strong></p>
+<ul>
+  <li>4 factory-sealed boxes (500 cups each)</li>
+  <li>2×2 stack: 2 boxes on floor, 2 boxes stacked on top</li>
+  <li>Footprint: ~24"W × 24"D (2 ft × 2 ft)</li>
+  <li>Height: ~36" (3 ft when stacked)</li>
+  <li>Location: On floor within BLUE tape boundary, next to machine (NOT under rack)</li>
+</ul>
+
+<p><strong>Why Not Under Rack?</strong> HDX rack bottom shelf (Shelf 1) sits ~18-20" above floor. Cup stack height is ~36". Insufficient clearance. Cups must be stored on open floor space next to machine.</p>
+
+<h3>Total Site Footprint</h3>
+
+<table>
+  <tr>
+    <th>Component</th>
+    <th>Dimensions</th>
+    <th>Floor Space</th>
+  </tr>
+  <tr>
+    <td>HDX Rack (11 bins)</td>
+    <td>48"W × 18"D × 72"H</td>
+    <td>6 sq ft</td>
+  </tr>
+  <tr>
+    <td>Cup boxes (2×2 stack)</td>
+    <td>24"W × 24"D × 36"H</td>
+    <td>4 sq ft</td>
+  </tr>
+  <tr>
+    <td>Access clearance</td>
+    <td>12" minimum around rack</td>
+    <td>—</td>
+  </tr>
+  <tr style="background: #E0E7FF; font-weight: 600;">
+    <td colspan="2"><strong>MINIMUM CLOSET/AREA REQUIRED</strong></td>
+    <td><strong>~12 sq ft</strong></td>
+  </tr>
+</table>
+
+<p><strong>Recommended Closet Dimensions:</strong></p>
+<ul>
+  <li>Width: 72" (6 ft) - accommodates rack (48") + cup boxes (24") side-by-side</li>
+  <li>Depth: 30" (2.5 ft) - allows 12" clearance behind rack for access</li>
+  <li>Height: 78" (6.5 ft) - accommodates rack height (72") + 6" clearance</li>
+</ul>
+
+<h2>6. RACK LABELING SYSTEM</h2>
+
+<p><strong>Label Philosophy:</strong> Color = location system | Text = contents system | L/C/R = position clarity</p>
+
+<h3>Bin-Front Labels (11 Total)</h3>
+
+<p><strong>Format:</strong> 3"W × 2"H laminated vinyl | Product name in 24pt bold white text | Position tag (L/C/R) in 10pt bottom-right corner</p>
+
+<table>
+  <tr>
+    <th>Shelf</th>
+    <th>Label Quantity</th>
+    <th>Background Color</th>
+    <th>Label Text</th>
+  </tr>
+  <tr>
+    <td>Shelf 1 (RED)</td>
+    <td>2 labels</td>
+    <td>#DC2626 (red)</td>
+    <td>SYRUPS L | SYRUPS R (Right bin empty until expansion)</td>
+  </tr>
+  <tr>
+    <td>Shelf 2 (GREEN)</td>
+    <td>3 labels</td>
+    <td>#16A34A (green)</td>
+    <td>OAT L | DAIRY C | COFFEE R</td>
+  </tr>
+  <tr>
+    <td>Shelf 3 (YELLOW)</td>
+    <td>3 labels</td>
+    <td>#EAB308 (yellow)</td>
+    <td>MATCHA L | CHAI C | COCOA R</td>
+  </tr>
+  <tr>
+    <td>Shelf 4 (GRAY)</td>
+    <td>3 labels</td>
+    <td>#6B7280 (gray)</td>
+    <td>SUGAR L | CLEANING C | LIDS R (700 disposable cup lids for customers)</td>
+  </tr>
+  <tr>
+    <td>Floor (BLUE)</td>
+    <td>1 sign</td>
+    <td>#2563EB (blue)</td>
+    <td>CUPS — 2,000 (90-DAY CYCLE)</td>
+  </tr>
+</table>
+
+<p><strong>Placement:</strong> Labels applied to center front of bin lip. Must be readable from 2 feet distance.</p>
+
+<div class="callout-box">
+  <strong>CRITICAL: Lids vs. Caps Clarification</strong>
+  <ul>
+    <li><strong>Shelf 4 Right Bin (LIDS):</strong> 700 disposable plastic dome lids for CUSTOMER beverages. These are the lids customers use on their drinks.</li>
+    <li><strong>NOT Syrup Caps:</strong> Do not confuse with Safety Red Solid Shipping Caps that stay attached to syrup jugs in BOX A. Syrup caps are never removed and stay with the jugs on Shelf 1.</li>
+    <li><strong>Label Text Must Say:</strong> "LIDS" not "CAPS" to avoid confusion with syrup jug caps.</li>
+  </ul>
+</div>
+
+<h3>Optional Shelf Header Labels (4 Total)</h3>
+
+<p><strong>Format:</strong> 12"W × 1.5"H strip | Same color as zone | 14pt bold white text</p>
+
+<ul>
+  <li>Shelf 1: <span class="zone-label zone-a">ZONE A — LIQUIDS</span></li>
+  <li>Shelf 2: <span class="zone-label zone-b">ZONE B — POWDERS</span></li>
+  <li>Shelf 3: <span class="zone-label zone-c">ZONE C — FLAVORS</span></li>
+  <li>Shelf 4: <span class="zone-label zone-d">ZONE D — MAINTENANCE</span></li>
+</ul>
+
+<p><strong>Placement:</strong> Centered on shelf beam, just below shelf surface. Optional but recommended for sites with multiple machines or high-traffic areas.</p>
+
+<h3>Floor Sign Specification</h3>
+
+<p><strong>Format:</strong> 18"W × 12"H laminated sign or non-slip floor decal</p>
+<p><strong>Content:</strong></p>
+<ul>
+  <li>Main text: "CUPS — 2,000 (90-DAY CYCLE)" in 36pt white text on blue (#2563EB) background</li>
+  <li>Subtitle: "Ships separately from 60-day supplies" in 18pt text</li>
+  <li>Diagram: 2×2 box layout showing 4 factory boxes</li>
+  <li>Placement instruction: "NEXT TO MACHINE (NOT UNDER RACK)"</li>
+</ul>
+
+<p><strong>Placement:</strong> Edge of blue floor tape boundary, visible when approaching cup storage area. Guides PARTNER_TECHNICIAN on correct cup box stacking location.</p>
+
+<h2>7. DELIVERY EXECUTION PROTOCOLS</h2>
+
+<h3>Driver Instructions: 60-Day Ingredient Delivery</h3>
+
+<div class="procedure-step"><span class="procedure-step-number">1</span> <strong>SCAN & LOAD:</strong> At Hub, scan all 6 boxes (A, B1, B2, B3/C2, C1/C3, D). Verify scan confirmation in app before loading vehicle.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">2</span> <strong>LOAD SEQUENCE:</strong> Load heaviest first (BOX A, B1), lightest on top (BOX D). Prevents crushing during transit.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">3</span> <strong>ARRIVE & GPS CHECK:</strong> App validates within 50 meters of site. Green checkmark = proceed. Yellow warning = override possible but logged as LOCATION_ANOMALY.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">4</span> <strong>UNLOAD & ARRANGE:</strong> Bring all 6 boxes inside. Arrange for POD photo—all boxes visible, color labels facing camera.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">5</span> <strong>POD PHOTO:</strong> Take Proof of Delivery photo. App enforces: ≥1MB file size, brightness ≥30 luma, blur check passes, GPS within 50m, all 6 boxes visible.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">6</span> <strong>SUBMIT POD:</strong> Tap "Submit POD" in app. No weight entry (Zero-Weight Rule). Timestamp auto-embedded.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">7</span> <strong>PARTNER NOTIFICATION:</strong> App sends push notification to PARTNER_TECHNICIAN. 24-hour acceptance window starts immediately.</div>
+
+<h3>Driver Instructions: 90-Day Cup Delivery</h3>
+
+<div class="procedure-step"><span class="procedure-step-number">1</span> <strong>PICKUP:</strong> Collect 4 factory-sealed cup boxes directly from supplier staging area. No Hub stop required.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">2</span> <strong>SCAN:</strong> Scan CARTON E barcode (single scan covers all 4 boxes). Verify in app.</div>
+
+<div class="procedure-step"><span class="procedure-step-number">3</span> <strong>DELIVER:</strong> Standard delivery protocol (steps 3-7 above). POD photo must show all 4 factory boxes.</div>
+
+<div class="callout-box">
+  <strong>Cup Delivery Efficiency:</strong> Average cup delivery time: 8 minutes (vs. 12 minutes for ingredient delivery). Lighter weight (13 lbs vs. 200 lbs), fewer boxes to arrange, simpler POD capture. Cup deliveries are fastest in system.
+</div>
+
+<h3>PARTNER_TECHNICIAN Instructions: Accepting Deliveries</h3>
+
+<p><strong>24-Hour Rule:</strong> Must accept or refuse delivery within 24 hours of POD timestamp. Failure to act triggers URGENT_ALERT to OPS_MANAGER.</p>
+
+<p><strong>Acceptance Sequence (Ingredient Delivery):</strong></p>
+<ol>
+  <li>Open app, navigate to "Pending Deliveries"</li>
+  <li>Review POD photo—verify 6 boxes present, no visible damage</li>
+  <li>Physically inspect boxes—check for crushing, wet spots, open seals</li>
+  <li>If all boxes acceptable → Tap "Accept Delivery"</li>
+  <li>If any box damaged → Tap "Refuse Delivery", select damaged box(es), take damage photos</li>
+  <li>Begin refill process (transfer bags from boxes to bins per zone labels)</li>
+</ol>
+
+<p><strong>Acceptance Sequence (Cup Delivery):</strong></p>
+<ol>
+  <li>Review POD photo—verify 4 factory boxes present</li>
+  <li>Physically inspect—factory seals intact, no crushing</li>
+  <li>Accept in app</li>
+  <li>Stack 4 boxes in 2×2 arrangement on floor within BLUE tape boundary</li>
+  <li>Position: Next to machine (NOT under rack - insufficient clearance)</li>
+  <li>Stack configuration: 2 boxes on floor (bottom row), 2 boxes stacked on top (top row)</li>
+  <li>Verify stability - stack should be ~36" tall and occupy ~2 ft × 2 ft floor space</li>
+  <li>No bin transfer required (cups stay in factory boxes until used)</li>
+</ol>
+
+<div class="callout-box">
+  <strong>Cup Placement Critical:</strong> Do NOT attempt to store cup boxes under rack. Bottom shelf clearance (~18-20") is insufficient for 36" cup stack. Boxes must remain on open floor next to machine within BLUE zone boundary. This is by design and documented in wayfinding labels.
+</div>
+
+<h2>8. COLLISION DAY MANAGEMENT PROTOCOL</h2>
+
+<p><strong>What is a Collision Day?</strong> When 60-day ingredient cycle and 90-day cup cycle align on same calendar day. Occurs Day 120 and Day 300 (twice per year, every 180 days).</p>
+
+<h3>Collision Day Schedule (Annual Example)</h3>
+
+<table>
+  <tr>
+    <th>Day</th>
+    <th>Delivery Type</th>
+    <th>Box Count</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>Day 0</td>
+    <td>Ingredients</td>
+    <td>6 boxes</td>
+    <td>Normal</td>
+  </tr>
+  <tr>
+    <td>Day 30</td>
+    <td>Cups</td>
+    <td>4 boxes</td>
+    <td>Normal</td>
+  </tr>
+  <tr>
+    <td>Day 60</td>
+    <td>Ingredients</td>
+    <td>6 boxes</td>
+    <td>Normal</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td><strong>Day 120</strong></td>
+    <td><strong>BOTH (Collision)</strong></td>
+    <td><strong>10 boxes</strong></td>
+    <td><strong>⚠️ Collision #1</strong></td>
+  </tr>
+  <tr>
+    <td>Day 180</td>
+    <td>Ingredients</td>
+    <td>6 boxes</td>
+    <td>Normal</td>
+  </tr>
+  <tr>
+    <td>Day 210</td>
+    <td>Cups</td>
+    <td>4 boxes</td>
+    <td>Normal</td>
+  </tr>
+  <tr>
+    <td>Day 240</td>
+    <td>Ingredients</td>
+    <td>6 boxes</td>
+    <td>Normal</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td><strong>Day 300</strong></td>
+    <td><strong>BOTH (Collision)</strong></td>
+    <td><strong>10 boxes</strong></td>
+    <td><strong>⚠️ Collision #2</strong></td>
+  </tr>
+  <tr>
+    <td>Day 360</td>
+    <td>Ingredients</td>
+    <td>6 boxes</td>
+    <td>Normal</td>
+  </tr>
+</table>
+
+<h3>Handling Collision Days: Two Options</h3>
+
+<p><strong>Option A: Single 10-Box Delivery (RECOMMENDED)</strong></p>
+
+<ul>
+  <li>Driver loads all 10 boxes (6 ingredient + 4 cup) in single trip</li>
+  <li>One POD photo showing all 10 boxes</li>
+  <li>PARTNER_TECHNICIAN accepts full shipment once</li>
+  <li>Refill sequence: Ingredients first (~90 min), cups second (~20 min)</li>
+  <li>No additional delivery cost</li>
+</ul>
+
+<p><strong>Pros:</strong> Simplest execution, one driver visit, one acceptance process<br>
+<strong>Cons:</strong> 10 boxes on 2 days per year (defeats "max 6 boxes" goal 20% of cup deliveries)</p>
+
+<p><strong>Option B: Split Same-Day Delivery</strong></p>
+
+<ul>
+  <li>Morning delivery: 6 ingredient boxes</li>
+  <li>Afternoon delivery: 4 cup boxes (same driver, different route stop)</li>
+  <li>Two separate POD photos</li>
+  <li>PARTNER_TECHNICIAN accepts twice in one day</li>
+  <li>Adds $25/site × 2 collisions = $50/site/year additional cost</li>
+</ul>
+
+<p><strong>Pros:</strong> Maintains "max 6 boxes" principle 100% of time<br>
+<strong>Cons:</strong> Doubles delivery cost on collision days, more complex routing</p>
+
+<div class="v100-box">
+  <strong>BOARD APPROVED PROTOCOL:</strong> Use Option A (single 10-box delivery) on collision days. Twice-per-year occurrence of 10 boxes is acceptable trade-off versus doubling delivery costs. Still significantly better than original 9-box-every-delivery model.
+</div>
+
+<h3>Collision Day Pre-Notification</h3>
+
+<p>OPS_MANAGER must notify sites 48 hours before collision day:</p>
+
+<blockquote style="background: var(--bg-light); padding: 10px; border-left: 3px solid var(--accent); margin: 10px 0; font-style: italic;">
+"Hi [Partner Name], heads up that your next delivery on [Date] will be larger than usual—both ingredient and cup shipments are aligned this cycle. You'll receive 10 boxes total (our twice-per-year 'full restock' day). Everything follows the same color-coded system. Plan for ~2 hours total to process. Thanks for your flexibility!"
+</blockquote>
+
+<h2>9. COST STRUCTURE & ECONOMICS</h2>
+
+<h3>Per-Site Annual Cost Breakdown (Updated v100)</h3>
+
+<table>
+  <tr>
+    <th>Cost Item</th>
+    <th>Calculation</th>
+    <th>Annual Amount</th>
+  </tr>
+  <tr>
+    <td><strong>Ingredient freight (6/year)</strong></td>
+    <td>6 deliveries × $83.70</td>
+    <td>$502</td>
+  </tr>
+  <tr>
+    <td><strong>Ingredient handling (6/year)</strong></td>
+    <td>6 deliveries × 6 boxes × $10/box</td>
+    <td>$360</td>
+  </tr>
+  <tr>
+    <td><strong>Cup freight (4/year)</strong></td>
+    <td>4 deliveries × $35</td>
+    <td>$140</td>
+  </tr>
+  <tr>
+    <td><strong>Cup handling (4/year)</strong></td>
+    <td>4 deliveries × 4 boxes × $10/box</td>
+    <td>$160</td>
+  </tr>
+  <tr style="background: #E0E7FF; font-weight: 600;">
+    <td colspan="2"><strong>TOTAL SHIPPING COST/SITE/YEAR</strong></td>
+    <td><strong>$1,162</strong></td>
+  </tr>
+  <tr>
+    <td colspan="2">Per 60-day ingredient cycle</td>
+    <td>$862 ÷ 6 = $144/cycle</td>
+  </tr>
+  <tr>
+    <td colspan="2">Per 90-day cup cycle</td>
+    <td>$300 ÷ 4 = $75/cycle</td>
+  </tr>
+</table>
+
+<h3>Fleet-Wide Economics (500 Machines)</h3>
+
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Amount</th>
+  </tr>
+  <tr>
+    <td><strong>Total annual shipping cost</strong></td>
+    <td>$1,162/site × 500 sites = $581,000/year</td>
+  </tr>
+  <tr>
+    <td><strong>Ingredient deliveries/year</strong></td>
+    <td>6 deliveries × 500 sites = 3,000 deliveries</td>
+  </tr>
+  <tr>
+    <td><strong>Cup deliveries/year</strong></td>
+    <td>4 deliveries × 500 sites = 2,000 deliveries</td>
+  </tr>
+  <tr>
+    <td><strong>Total deliveries/year</strong></td>
+    <td>5,000 deliveries</td>
+  </tr>
+  <tr>
+    <td><strong>Hub boxes packed/year</strong></td>
+    <td>6 boxes × 3,000 deliveries = 18,000 boxes</td>
+  </tr>
+  <tr>
+    <td><strong>Factory boxes shipped/year</strong></td>
+    <td>4 boxes × 2,000 deliveries = 8,000 boxes (bypass Hub)</td>
+  </tr>
+</table>
+
+<h3>vs. Original 60-Day Universal Model (Rejected)</h3>
+
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>60-Day Universal</th>
+    <th>60/90 Split (v100)</th>
+    <th>Difference</th>
+  </tr>
+  <tr>
+    <td>Boxes per typical delivery</td>
+    <td>9 boxes</td>
+    <td>6 or 4 boxes</td>
+    <td>-3 to -5 boxes ✅</td>
+  </tr>
+  <tr>
+    <td>Annual cost/site</td>
+    <td>$862</td>
+    <td>$1,162</td>
+    <td>+$300/site</td>
+  </tr>
+  <tr>
+    <td>Fleet cost (500 sites)</td>
+    <td>$431,000</td>
+    <td>$581,000</td>
+    <td>+$150,000/year</td>
+  </tr>
+  <tr>
+    <td>Hub labor (cups bypass QC)</td>
+    <td>26,000 boxes/year</td>
+    <td>18,000 boxes/year</td>
+    <td>-$136,000 savings</td>
+  </tr>
+  <tr style="background: #D1FAE5; font-weight: 600;">
+    <td colspan="3"><strong>NET COST INCREASE</strong></td>
+    <td><strong>+$14,000/year</strong></td>
+  </tr>
+</table>
+
+<div class="callout-box">
+  <strong>Strategic ROI:</strong> $14K/year net investment protects 500 landlord relationships. Single lost contract due to "too many boxes" complaint = $1,724/year revenue loss. Break-even = 9 lost contracts. Actual value far exceeds cost when considering reputation, renewal rates, and PARTNER satisfaction.
+</div>
+
+<h2>10. QUALITY GATES FOR INGREDIENT SHIPMENTS</h2>
+
+<p><strong>5-Gate QC applies to 6 ingredient boxes only.</strong> Cup shipments (CARTON E) bypass all gates—factory sealed, direct pickup.</p>
+
+<h3>The 5-Gate Sequence</h3>
+
+<div class="gate-item"><strong>GATE 1: Zero Check.</strong> Digital scale tared with 10 lb weight at shift start. Log calibration timestamp. Scale must read 10.00 lbs ±0.05 lbs to pass. Recalibrate if drift detected.</div>
+
+<div class="gate-item"><strong>GATE 2: Freshness Lock.</strong> BOX B1 only: Verify every Oat/Matcha mix bag contains exactly one Oxygen Absorber 500cc before sealing box. No absorber = reject bag. Log absorber count.</div>
+
+<div class="gate-item"><strong>GATE 3: Weight Law.</strong> Weigh each box after packing. Record weight in QC log. Standard: 20-40 lbs (no scale lock, logging only). If >40 lbs, ops manager reviews and decides: split box or accept overage with documentation.</div>
+
+<div class="gate-item"><strong>GATE 4: Movement Test.</strong> Shake test: Lift box 6" off ground, shake gently. Listen for rattles. If rattle detected, add corrugated void-caps until zero-rattle achieved. Compression test: Press lid closed without forcing—should close smoothly.</div>
+
+<div class="gate-item"><strong>GATE 5: Label Gate.</strong> Apply color-coded BOX ID label (4"×6" minimum) on SIDE of carton (not top). Must match zone color. Label must not cover carrier shipping label. Insert label into clear packing list envelope. Verify box ID matches manifest.</div>
+
+<h3>Quality Metrics & Rejection Thresholds</h3>
+
+<table>
+  <tr>
+    <th>Gate</th>
+    <th>Pass Rate Target</th>
+    <th>Rejection Trigger</th>
+  </tr>
+  <tr>
+    <td>Gate 1 (Calibration)</td>
+    <td>100%</td>
+    <td>Scale drift >0.1 lbs → Recalibrate immediately</td>
+  </tr>
+  <tr>
+    <td>Gate 2 (O₂ Absorbers)</td>
+    <td>100%</td>
+    <td>Missing absorber → Reject bag, add new bag with absorber</td>
+  </tr>
+  <tr>
+    <td>Gate 3 (Weight)</td>
+    <td>≥95%</td>
+    <td>>40 lbs → Ops manager review required</td>
+  </tr>
+  <tr>
+    <td>Gate 4 (Movement)</td>
+    <td>≥98%</td>
+    <td>Rattle persists after void-cap → Repack box</td>
+  </tr>
+  <tr>
+    <td>Gate 5 (Label)</td>
+    <td>100%</td>
+    <td>Wrong color label → Replace with correct zone color</td>
+  </tr>
+</table>
+
+<h2>11. SCALING CONSIDERATIONS & FUTURE UPDATES</h2>
+
+<h3>BOX A Scale-Up Decision Point</h3>
+
+<p><strong>Current:</strong> 4 syrup jugs per 60-day cycle (testing phase)</p>
+
+<p><strong>Trigger for BOX A2:</strong> If actual consumption data from 20+ sites shows average ≥26 syrup jugs per 60-day cycle (3 jugs/week sustained), split BOX A:</p>
+
+<ul>
+  <li><strong>BOX A1:</strong> 4 syrup jugs, ~40 lbs, Shelf 1 Left bin</li>
+  <li><strong>BOX A2:</strong> 4 syrup jugs, ~40 lbs, Shelf 1 Right bin</li>
+  <li><strong>Result:</strong> 7-box system becomes 8-box system (6→7 ingredient boxes)</li>
+  <li><strong>Cost impact:</strong> +$10 handling fee per delivery = +$60/site/year</li>
+</ul>
+
+<p><strong>Decision Criteria:</strong></p>
+<ol>
+  <li>Monitor actual syrup consumption for first 90 days of pilot</li>
+  <li>If ≥70% of sites consume >3 jugs/week → approve BOX A2 split</li>
+  <li>If <50% of sites exceed 3 jugs/week → keep 4-jug configuration</li>
+  <li>Re-evaluate every 6 months during expansion phase</li>
+</ol>
+
+<h3>BOX D Lid Quantity (Confirmed Specification)</h3>
+
+<p><strong>Current Status:</strong> 700 disposable cup lids confirmed as standard 60-day supply</p>
+
+<p><strong>Lid Specifications:</strong></p>
+<ul>
+  <li><strong>Type:</strong> Disposable plastic dome lids for customer beverages (8-12 oz cup compatible)</li>
+  <li><strong>Quantity:</strong> 700 lids per 60-day cycle</li>
+  <li><strong>Packaging:</strong> Delivered in sleeves (count per sleeve varies by supplier: 100, 125, or 150 lids/sleeve)</li>
+  <li><strong>Weight:</strong> ~5 lbs (700 lids × 0.008 lbs/lid including sleeve packaging)</li>
+  <li><strong>Storage:</strong> Shelf 4 Right bin (GRAY zone)</li>
+</ul>
+
+<p><strong>Supply Calculation:</strong></p>
+<ul>
+  <li>Average usage: 85 lids/week (assumes 75% of drinks use lids, some customers prefer open cups)</li>
+  <li>60 days ÷ 7 days/week = 8.57 weeks</li>
+  <li>8.57 weeks × 85 lids/week = 728 lids needed</li>
+  <li>Supplied: 700 lids</li>
+  <li>Coverage: 96% (acceptable with small buffer from previous cycle carryover)</li>
+</ul>
+
+<p><strong>Sleeve Configuration Handling:</strong></p>
+<table>
+  <tr>
+    <th>Lids per Sleeve</th>
+    <th>Sleeves Needed</th>
+    <th>Total Lids</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>100 lids/sleeve</td>
+    <td>7 sleeves</td>
+    <td>700 lids</td>
+    <td>✅ Exact match</td>
+  </tr>
+  <tr>
+    <td>125 lids/sleeve</td>
+    <td>6 sleeves</td>
+    <td>750 lids</td>
+    <td>✅ 7% buffer</td>
+  </tr>
+  <tr>
+    <td>150 lids/sleeve</td>
+    <td>5 sleeves</td>
+    <td>750 lids</td>
+    <td>✅ 7% buffer</td>
+  </tr>
+</table>
+
+<p><strong>Adjustment Decision (Post-Testing):</strong></p>
+<ul>
+  <li>If avg usage <70 lids/week → Reduce to 600 lids (saves weight/cost)</li>
+  <li>If avg usage 70-90 lids/week → Keep 700 lids (current specification)</li>
+  <li>If avg usage >90 lids/week → Increase to 800-900 lids (add 1-2 sleeves)</li>
+</ul>
+
+<div class="callout-box">
+  <strong>Important Distinction:</strong> These are CUSTOMER lids for beverages, not to be confused with Safety Red Solid Shipping Caps used on syrup jugs in BOX A. Syrup caps remain attached to jugs and are never removed. Customer lids are single-use disposables stored separately in Shelf 4 Right bin.
+</div>
+
+<h3>Hub Automation Threshold</h3>
+
+<p><strong>Trigger Point:</strong> 350 machines (18,000 boxes/year → 1,500 boxes/month)</p>
+
+<p><strong>Current Manual QC Capacity:</strong></p>
+<ul>
+  <li>Average 11 min/box × 1,500 boxes = 16,500 min/month = 275 hours/month</li>
+  <li>Requires 7 full-time packers at $20/hr = ~$5,500/month labor</li>
+  <li>Error rate: 5% = 75 rework boxes/month (manageable but high)</li>
+</ul>
+
+<p><strong>Automation Options (Pre-Plan):</strong></p>
+<ol>
+  <li><strong>Phase 1 (300-350 machines):</strong> Automate Gate 3 only (conveyor scale with auto-logging) → Saves 3 min/box</li>
+  <li><strong>Phase 2 (350-400 machines):</strong> Semi-automated line (auto-weigh, auto-label, human verify) → Target 5 min/box</li>
+  <li><strong>Phase 3 (400+ machines):</strong> Full automation with vision QC → Target 2-3 min/box</li>
+</ol>
+
+<p><strong>Action Required:</strong> Initiate RFP for automation by Month 4 (before 300-machine threshold) to allow 6-month implementation lead time.</p>
+
+<h2>12. EMERGENCY PROTOCOLS & CONTINGENCIES</h2>
+
+<h3>Delivery Failure Scenarios</h3>
+
+<p><strong>Scenario A: PARTNER Refuses Ingredient Delivery (Damage Detected)</strong></p>
+<ol>
+  <li>PARTNER documents damage with in-app photos (3 angles minimum)</li>
+  <li>App notifies OPS_MANAGER immediately with photos</li>
+  <li>Ops manager evaluates: minor (repack 1-2 boxes) vs. major (full reshpiment)</li>
+  <li>If minor: Expedited repack and same-day redelivery authorized</li>
+  <li>If major: Emergency 24-hour full reshipment triggered</li>
+  <li>Site operates on existing inventory during emergency window</li>
+</ol>
+
+<p><strong>Scenario B: Driver Cannot Deliver (Site Access Denied)</strong></p>
+<ol>
+  <li>Driver documents access issue with photo + GPS timestamp</li>
+  <li>Driver returns boxes to Hub (do not leave unattended)</li>
+  <li>OPS_MANAGER contacts site within 2 hours to resolve access</li>
+  <li>Redelivery scheduled within 48 hours</li>
+  <li>If site repeatedly denies access (3× in 6 months) → Contract review</li>
+</ol>
+
+<p><strong>Scenario C: Collision Day Overload (10 Boxes Too Much for Site)</strong></p>
+<ol>
+  <li>Site contacts OPS_MANAGER before delivery day (min 48hr notice)</li>
+  <li>Ops manager offers split delivery: Ingredients AM, Cups PM (+$25 fee)</li>
+  <li>Or defer cup delivery by 7 days (moves to Day 127 instead of Day 120)</li>
+  <li>Document preference in site notes for future collision days</li>
+</ol>
+
+<h3>Inventory Shortage Emergency</h3>
+
+<p><strong>Trigger:</strong> Site reports <10% remaining on any ingredient before next scheduled delivery</p>
+
+<p><strong>Emergency Resupply Protocol:</strong></p>
+<ol>
+  <li>PARTNER reports shortage via app "Emergency Resupply" button</li>
+  <li>App requires photo of nearly-empty bin as evidence</li>
+  <li>OPS_MANAGER reviews consumption data: Actual emergency vs. misreporting?</li>
+  <li>If validated: 2-day expedited shipment of shortage item only (not full delivery)</li>
+  <li>Cost: $75 expedite fee (absorbed by SIPJOLT if usage spike confirmed)</li>
+  <li>Ops reviews consumption pattern: Is 60-day cycle adequate for this site?</li>
+</ol>
+
+<h2>13. SUMMARY: KEY PRINCIPLES OF GATE5 v100</h2>
+
+<div class="v100-box">
+  <strong>STRATEGIC PILLARS OF THE 60/90 SPLIT MODEL:</strong>
+  
+  <ol style="margin-top: 10px;">
+    <li><strong>Landlord Relationship Optimization:</strong> Never more than 6 boxes per typical delivery (80% of time) maintains professional commercial appearance</li>
+    
+    <li><strong>Complete Ingredient Sets:</strong> All 60-day consumables ship together (BOX A-D) ensuring operational continuity without partial deliveries</li>
+    
+    <li><strong>Product-Appropriate Cycles:</strong> Consumables (60-day fast cycle) logically separated from durable goods (90-day slow cycle)</li>
+    
+    <li><strong>PARTNER Workload Management:</strong> Separate ingredient (~90 min) and cup (~20 min) refills reduce single-session fatigue and error rates</li>
+    <li><strong>Hub Efficiency:</strong> Cup shipments bypass 5-Gate QC (factory sealed) saving 8,000 box-processing hours per year at 500-machine scale</li>
+    
+    <li><strong>Collision Acceptance:</strong> 10-box deliveries 2× per year (Day 120, 300) accepted as reasonable trade-off versus complexity of same-day splits</li>
+    
+    <li><strong>Weight Law Enforcement:</strong> 20-40 lb standard protects single-person handling safety while optimizing freight tiers</li>
+    
+    <li><strong>11-Bin Storage System:</strong> Syrup containment + future 8-jug capacity built into site hardware from day one</li>
+    
+    <li><strong>Flexible Scaling:</strong> BOX A can split to A1+A2 when consumption validates, BOX D lid quantity adjustable based on testing data</li>
+    
+    <li><strong>Cost-Conscious Investment:</strong> $14K/year net additional cost (after labor savings) protects $862K annual revenue base (500 sites)</li>
+  </ol>
+</div>
+
+<h2>14. APPENDIX: QUICK REFERENCE TABLES</h2>
+
+<h3>Annual Delivery Calendar Template (Any Site)</h3>
+
+<table style="font-size: 8pt;">
+  <tr>
+    <th>Day</th>
+    <th>Delivery</th>
+    <th>Boxes</th>
+    <th>Day</th>
+    <th>Delivery</th>
+    <th>Boxes</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>Ingredients</td>
+    <td>6</td>
+    <td>180</td>
+    <td>Ingredients</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>30</td>
+    <td>Cups</td>
+    <td>4</td>
+    <td>210</td>
+    <td>Cups</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>60</td>
+    <td>Ingredients</td>
+    <td>6</td>
+    <td>240</td>
+    <td>Ingredients</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>90</td>
+    <td>—</td>
+    <td>—</td>
+    <td>270</td>
+    <td>—</td>
+    <td>—</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td>120</td>
+    <td><strong>BOTH</strong></td>
+    <td><strong>10</strong></td>
+    <td><strong>300</strong></td>
+    <td><strong>BOTH</strong></td>
+    <td><strong>10</strong></td>
+  </tr>
+  <tr>
+    <td>150</td>
+    <td>—</td>
+    <td>—</td>
+    <td>330</td>
+    <td>—</td>
+    <td>—</td>
+  </tr>
+</table>
+
+<h3>Box Weight Reference (Quick Check)</h3>
+
+<table style="font-size: 8pt;">
+  <tr>
+    <th>Box ID</th>
+    <th>Target Weight</th>
+    <th>Acceptable Range</th>
+    <th>Action if Outside Range</th>
+  </tr>
+  <tr>
+    <td>BOX A</td>
+    <td>40 lbs</td>
+    <td>38-42 lbs</td>
+    <td>If >42 lbs: Remove 1 jug, reweigh</td>
+  </tr>
+  <tr>
+    <td>BOX B1</td>
+    <td>40 lbs</td>
+    <td>38-42 lbs</td>
+    <td>If >42 lbs: Remove 1 bag, reweigh</td>
+  </tr>
+  <tr>
+    <td>BOX B2</td>
+    <td>31 lbs</td>
+    <td>29-33 lbs</td>
+    <td>Standard range OK</td>
+  </tr>
+  <tr>
+    <td>BOX B3/C2</td>
+    <td>34 lbs</td>
+    <td>32-36 lbs</td>
+    <td>Standard range OK</td>
+  </tr>
+  <tr>
+    <td>BOX C1/C3</td>
+    <td>31 lbs</td>
+    <td>29-33 lbs</td>
+    <td>Standard range OK</td>
+  </tr>
+  <tr>
+    <td>BOX D</td>
+    <td>24 lbs</td>
+    <td>22-26 lbs</td>
+    <td>14 lbs sugar + 5 lbs cleaning + 5 lbs lids (700 disposable)</td>
+  </tr>
+  <tr>
+    <td>CARTON E (4 boxes)</td>
+    <td>13 lbs</td>
+    <td>12-14 lbs</td>
+    <td>Factory sealed—no adjustment</td>
+  </tr>
+</table>
+
+<h3>Contact Tree for Issues</h3>
+
+<table style="font-size: 8pt;">
+  <tr>
+    <th>Issue Type</th>
+    <th>First Contact</th>
+    <th>Response Time</th>
+    <th>Escalation</th>
+  </tr>
+  <tr>
+    <td>Damaged delivery</td>
+    <td>OPS_MANAGER via app</td>
+    <td>2 hours</td>
+    <td>Emergency reshipment 24hr</td>
+  </tr>
+  <tr>
+    <td>Access denied</td>
+    <td>Driver → OPS_MANAGER</td>
+    <td>2 hours</td>
+    <td>Site contact + reschedule 48hr</td>
+  </tr>
+  <tr>
+    <td>Ingredient shortage</td>
+    <td>PARTNER → "Emergency Resupply" button</td>
+    <td>4 hours</td>
+    <td>Expedited 2-day shipment</td>
+  </tr>
+  <tr>
+    <td>Box weight >40 lbs</td>
+    <td>Packer → OPS_MANAGER</td>
+    <td>Immediate</td>
+    <td>Repack or document overage</td>
+  </tr>
+  <tr>
+    <td>Missing O₂ absorber</td>
+    <td>Packer → Gate 2 lead</td>
+    <td>Immediate</td>
+    <td>Reject bag, add new with absorber</td>
+  </tr>
+</table>
+
+---
+
+<p style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--primary); color: var(--text-medium); font-size: 9pt;">
+  <strong>SIPJOLT Operations Manual - PART VII: Gate5 Shipping Framework v100</strong><br>
+  Document Version: v100 FINAL | Effective Date: January 22, 2026<br>
+  Strategic Model: 60/90 Split Delivery System | Board Approved<br>
+  Next Review: Upon completion of 10-site pilot testing (Week 10)
+</p>
+
+<div class="page-break"></div>
+
+<!-- ADDENDUM SECTION -->
+<div class="part-header">ADDENDUM A: BOARD DECISION MATRIX</div>
+
+<h1>Leadership Framework Audit Response</h1>
+
+<div class="v100-box">
+  <strong>OFFICIAL BOARD RESPONSE TO GATE5 v100 AUDIT</strong><br>
+  Date: January 22, 2026<br>
+  Status: Composite Score 96/100 - Operationally Conservative (By Design)
+</div>
+
+<h2>Executive Summary</h2>
+
+<p>The Board has reviewed the <strong>Gate5 v100 Leadership Framework Audit</strong> (Musk/Smith/Schultz/Ashkenazi/Guo/Blank Street analysis). We accept the composite score of 96/100 and acknowledge the finding that <strong>v100 is operationally conservative.</strong></p>
+
+<p>However, we reject the premise that "conservative" is negative. SIPJOLT is building a utility, not a fashion brand. <strong>Reliability is our primary currency.</strong> The Board has approved strategic investments in data intelligence, predictive analytics, and Partner experience while maintaining our commitment to physical safety and capital efficiency.</p>
+
+<h2>Decision Status by Tier</h2>
+
+<h3>TIER 1: Approved for Immediate Deployment</h3>
+
+<table>
+  <tr>
+    <th>Initiative</th>
+    <th>Status</th>
+    <th>Investment</th>
+    <th>Directive</th>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td><strong>#1: Rebrand to "SIPJOLT Barista Specialist"</strong></td>
+    <td>✅ APPROVED</td>
+    <td>$0</td>
+    <td>Update all digital interfaces, training materials, external communications immediately. Zero-cost morale leverage.</td>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td><strong>#2: Bin Weight Sensors (10 Pilot Sites)</strong></td>
+    <td>✅ APPROVED (Pilot)</td>
+    <td>$5,500</td>
+    <td>Deploy load cells at 10 pilot sites. Validate "Shadow Inventory" hypothesis before fleet rollout.</td>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td><strong>#3: Automate Gate 2 (O₂ Absorber QC)</strong></td>
+    <td>✅ APPROVED (Internal)</td>
+    <td>$50K</td>
+    <td>Install inline optical sorting at manufacturing line. Guarantee 100% absorber presence before bags leave factory floor. We are the supplier—no manual Hub checks of our own factory work.</td>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td><strong>#4: Ingredient Storytelling</strong></td>
+    <td>✅ APPROVED</td>
+    <td>$20K</td>
+    <td>Produce origin videos (oat, dairy, matcha, coffee). Own the supply chain narrative to differentiate from vending.</td>
+  </tr>
+  <tr style="background: #D1FAE5;">
+    <td><strong>#7: Predictive Resupply ML Model</strong></td>
+    <td>✅ APPROVED (Priority)</td>
+    <td>$100K</td>
+    <td>Develop "Burn Down Curve" algorithm. Transition from reactive emergency shipping to predictive dynamic routing. Highest ROI initiative on audit list.</td>
+  </tr>
+</table>
+
+<p><strong>Tier 1 Total Investment:</strong> $175.5K | <strong>Expected ROI:</strong> $1.5M+ annual savings + intelligence infrastructure</p>
+
+<h3>TIER 2: Deferred to "Lab" Status</h3>
+
+<table>
+  <tr>
+    <th>Initiative</th>
+    <th>Status</th>
+    <th>Reasoning</th>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td><strong>#5: 6-Bin System Simplification</strong></td>
+    <td>⏸️ HOLD</td>
+    <td>No hardware disruption during initial launch. Revisit after 6 months of refill data.</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td><strong>#6: Unified 60-Day Cycle</strong></td>
+    <td>⏸️ HOLD</td>
+    <td>Collision day risks noted. 60/90 split remains law to manage box volume perception.</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td><strong>#8: Subscription Model</strong></td>
+    <td>⏸️ HOLD</td>
+    <td>Technical complexity. Stabilize logistics network before adding new financial layer.</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td><strong>#9: Robotic Hub Automation</strong></td>
+    <td>⏸️ HOLD</td>
+    <td>CapEx preservation. Manually scale to 200 units before releasing capital for robotics.</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td><strong>#11: Viral Ingredient "Hype" Lane</strong></td>
+    <td>⏸️ HOLD</td>
+    <td>Logistical distraction. Master core menu supply chain before introducing high-variance SKUs.</td>
+  </tr>
+</table>
+
+<h2>Board Directive</h2>
+
+<p>The <strong>v100 Manual</strong> remains the governing document. Approved Tier 1 items (Sensors, ML Model, Barista Title, Storytelling, Factory Automation) will be integrated into <strong>v101</strong>. Tier 2 items remain under evaluation and may be reconsidered after pilot phase data collection.</p>
+
+<div class="mandatory-box">
+  <strong>PROCEED WITH EXECUTION.</strong> Operations Directorate authorized to implement all Tier 1 initiatives immediately. Budget allocated: $175.5K. Timeline: 90 days to full deployment.
+</div>
+
+<div class="page-break"></div>
+
+<!-- ADDENDUM B: CUP CARTON SPECIFICATIONS -->
+<div class="part-header">ADDENDUM B: CARTON E DETAILED SPECIFICATIONS</div>
+
+<h1>Factory Cup Carton Technical Data</h1>
+
+<h2>90-Day Shipping Cycle: Strategic Rationale</h2>
+
+<h3>Why Cups Ship Separately from Ingredients</h3>
+
+<p><strong>Product Characteristic Analysis:</strong></p>
+
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Ingredients (60-Day)</th>
+    <th>Cups (90-Day)</th>
+  </tr>
+  <tr>
+    <td><strong>Spoilage Risk</strong></td>
+    <td>HIGH (powders degrade, syrups expire)</td>
+    <td>ZERO (paper product, indefinite shelf life)</td>
+  </tr>
+  <tr>
+    <td><strong>Storage Sensitivity</strong></td>
+    <td>Temperature, humidity, oxygen exposure</td>
+    <td>None (stable in any dry environment)</td>
+  </tr>
+  <tr>
+    <td><strong>Usage Variability</strong></td>
+    <td>Predictable (150 drinks/week avg)</td>
+    <td>Predictable (150 cups/week avg)</td>
+  </tr>
+  <tr>
+    <td><strong>Replenishment Urgency</strong></td>
+    <td>CRITICAL (stockout = no service)</td>
+    <td>MODERATE (stockout affects customer experience, not operations)</td>
+  </tr>
+  <tr>
+    <td><strong>Hub Processing</strong></td>
+    <td>REQUIRED (5-Gate QC, packing, labeling)</td>
+    <td>BYPASS (factory sealed, direct pickup)</td>
+  </tr>
+</table>
+
+<h3>The 60/90 Split Decision Logic</h3>
+
+<p><strong>Original Problem (v96 Model):</strong></p>
+<ul>
+  <li>Universal 60-day cycle shipped 9 boxes per delivery (6 ingredients + 3 cups)</li>
+  <li>Landlord perception: 9 boxes = "major shipment event"</li>
+  <li>Building managers flagged large deliveries as disruptive</li>
+  <li>Contract renewal risk identified at 3 pilot sites</li>
+</ul>
+
+<p><strong>v100 Solution:</strong></p>
+<ul>
+  <li>Separate consumables (60-day fast cycle) from durable goods (90-day slow cycle)</li>
+  <li>Typical delivery: 6 boxes (professional, manageable perception)</li>
+  <li>Cups extend to 90 days (2,000 cups = 103.7% of 90-day need)</li>
+  <li>Offset by +30 days → collision only 2× per year (acceptable trade-off)</li>
+</ul>
+
+<p><strong>Strategic Benefits:</strong></p>
+<ol>
+  <li><strong>Landlord Relationship Optimization:</strong> 6-box deliveries 80% of time maintain professional appearance</li>
+  <li><strong>Hub Efficiency:</strong> Cups bypass 5-Gate QC (8,000 boxes/year skip processing at 500-machine scale)</li>
+  <li><strong>Cost Optimization:</strong> Longer cup cycle reduces annual deliveries (4× vs. 6×)</li>
+  <li><strong>Operational Flexibility:</strong> Can adjust cup frequency independently without disrupting ingredient supply</li>
+</ol>
+
+<h2>CARTON E: Factory Cup Box Specifications</h2>
+
+<h3>Individual Factory Carton (1 of 4 per delivery)</h3>
+
+<table>
+  <tr>
+    <th>Specification</th>
+    <th>Metric Value</th>
+    <th>Imperial Value</th>
+  </tr>
+  <tr>
+    <td><strong>Length (长)</strong></td>
+    <td>47 cm</td>
+    <td>18.5 inches</td>
+  </tr>
+  <tr>
+    <td><strong>Width (宽)</strong></td>
+    <td>38 cm</td>
+    <td>15.0 inches</td>
+  </tr>
+  <tr>
+    <td><strong>Height (高)</strong></td>
+    <td>45 cm</td>
+    <td>17.7 inches</td>
+  </tr>
+  <tr>
+    <td><strong>Cubic Volume (材积)</strong></td>
+    <td>0.0804 m³</td>
+    <td>2.84 cubic feet</td>
+  </tr>
+  <tr>
+    <td><strong>Gross Weight (结算重)</strong></td>
+    <td>16.5 kg (total 4 boxes)</td>
+    <td>36.4 lbs (total)</td>
+  </tr>
+  <tr>
+    <td><strong>Per-Box Weight</strong></td>
+    <td>4.125 kg</td>
+    <td>9.1 lbs each</td>
+  </tr>
+  <tr>
+    <td><strong>Contents per Carton</strong></td>
+    <td>500 cups</td>
+    <td>500 cups</td>
+  </tr>
+  <tr>
+    <td><strong>Total Cups (4 cartons)</strong></td>
+    <td>2,000 cups</td>
+    <td>2,000 cups</td>
+  </tr>
+</table>
+
+<h3>Stacked Configuration (2×2 Floor Layout)</h3>
+
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Specification</th>
+  </tr>
+  <tr>
+    <td><strong>Bottom Row</strong></td>
+    <td>2 cartons side-by-side (38" × 37" footprint)</td>
+  </tr>
+  <tr>
+    <td><strong>Top Row</strong></td>
+    <td>2 cartons stacked on bottom row</td>
+  </tr>
+  <tr>
+    <td><strong>Total Stack Height</strong></td>
+    <td>35.4 inches (17.7" × 2)</td>
+  </tr>
+  <tr>
+    <td><strong>Total Stack Footprint</strong></td>
+    <td>38" × 37" (3.17 ft × 3.08 ft) = ~10 sq ft with clearance</td>
+  </tr>
+  <tr>
+    <td><strong>Total Weight (4 boxes)</strong></td>
+    <td>36.4 lbs</td>
+  </tr>
+</table>
+
+<div class="callout-box">
+  <strong>Updated Manual Weight Discrepancy Resolved:</strong> Manual Section 4 stated "~13 lbs total" based on estimated cup weight only (~6.5 lbs for 2,000 paper cups). Factory carton spec shows <strong>36.4 lbs total</strong> including carton materials, internal packaging, protective materials. The corrected specification is 36.4 lbs for accurate handling planning.
+</div>
+
+<h3>Handling & Storage Requirements</h3>
+
+<p><strong>Driver Delivery Protocol:</strong></p>
+<ul>
+  <li>4 cartons picked up from supplier staging area (factory sealed, no Hub stop)</li>
+  <li>Total load: 36.4 lbs (manageable single-person carry for 4 trips, or dolly for batch move)</li>
+  <li>POD photo requirement: All 4 cartons visible with factory seals intact</li>
+  <li>GPS validation: Same 50-meter geofence as ingredient deliveries</li>
+</ul>
+
+<p><strong>PARTNER Floor Storage Protocol:</strong></p>
+<ol>
+  <li>Locate BLUE tape boundary on floor (marked area next to machine)</li>
+  <li>Place 2 cartons on floor as bottom row (side-by-side, 38" × 37" footprint)</li>
+  <li>Stack remaining 2 cartons on top (aligned, stable stack)</li>
+  <li>Verify stack height does not exceed 36" (fits under standard door clearance)</li>
+  <li>Confirm cartons are within BLUE zone (not blocking walkways or machine access)</li>
+</ol>
+
+<p><strong>CRITICAL: Why NOT Under Rack?</strong></p>
+<ul>
+  <li>HDX rack bottom shelf (Shelf 1) clearance: 18-20 inches above floor</li>
+  <li>Cup stack height: 35.4 inches (17.7" × 2 cartons)</li>
+  <li>Deficit: Stack is 15-17 inches taller than available clearance</li>
+  <li>Conclusion: Physical impossibility. Floor storage is mandatory, not optional.</li>
+</ul>
+
+<h2>90-Day Supply Coverage Validation</h2>
+
+<h3>Consumption Calculation</h3>
+
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Standard cup usage</td>
+    <td>150 cups/week</td>
+  </tr>
+  <tr>
+    <td>90-day cycle duration</td>
+    <td>90 days ÷ 7 days/week = 12.86 weeks</td>
+  </tr>
+  <tr>
+    <td>Total cups needed</td>
+    <td>12.86 weeks × 150 cups/week = 1,929 cups</td>
+  </tr>
+  <tr>
+    <td>Cups supplied (4 cartons)</td>
+    <td>2,000 cups</td>
+  </tr>
+  <tr>
+    <td>Coverage percentage</td>
+    <td>103.7% (71-cup buffer = 3.5% safety margin)</td>
+  </tr>
+  <tr>
+    <td>Buffer duration</td>
+    <td>71 cups ÷ 150 cups/week = 3.4 days extra supply</td>
+  </tr>
+</table>
+
+<h3>90-Day Delivery Calendar (Annual Example)</h3>
+
+<table style="font-size: 8pt;">
+  <tr>
+    <th>Delivery Day</th>
+    <th>Cycle Start Date</th>
+    <th>Cycle End Date</th>
+    <th>Days Since Last Delivery</th>
+  </tr>
+  <tr>
+    <td>Day 30</td>
+    <td>January 30, 2026</td>
+    <td>April 30, 2026</td>
+    <td>30 (offset from initial setup)</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td>Day 120</td>
+    <td>April 30, 2026</td>
+    <td>July 29, 2026</td>
+    <td>90 (COLLISION with ingredient Day 120)</td>
+  </tr>
+  <tr>
+    <td>Day 210</td>
+    <td>July 29, 2026</td>
+    <td>October 27, 2026</td>
+    <td>90</td>
+  </tr>
+  <tr style="background: #FEF3C7;">
+    <td>Day 300</td>
+    <td>October 27, 2026</td>
+    <td>January 25, 2027</td>
+    <td>90 (COLLISION with ingredient Day 300)</td>
+  </tr>
+</table>
+
+<p><strong>Collision Day Strategy (Day 120 & Day 300):</strong></p>
+<ul>
+  <li>6 ingredient boxes + 4 cup cartons = 10 boxes total</li>
+  <li>Occurs 2× per year (20% of cup deliveries)</li>
+  <li>PARTNER pre-notified 48 hours in advance</li>
+  <li>Extended refill time: Plan 2 hours total (ingredients 90 min + cups 20 min + breaks)</li>
+  <li>Alternative (rejected): Split same-day delivery adds $50/site/year</li>
+</ul>
+
+<h2>Final Space Requirements Summary</h2>
+
+<h3>Complete Site Footprint</h3>
+
+<table>
+  <tr>
+    <th>Component</th>
+    <th>Dimensions (Imperial)</th>
+    <th>Floor Space</th>
+    <th>Weight (Loaded)</th>
+  </tr>
+  <tr>
+    <td>HDX 4-Shelf Rack + 11 Bins</td>
+    <td>48"W × 18"D × 72"H</td>
+    <td>6 sq ft</td>
+    <td>~300 lbs (ingredients + bins + rack)</td>
+  </tr>
+  <tr>
+    <td>Cup Carton Stack (2×2)</td>
+    <td>38"W × 37"D × 35.4"H</td>
+    <td>~10 sq ft (with access clearance)</td>
+    <td>36.4 lbs</td>
+  </tr>
+  <tr style="background: #E0E7FF; font-weight: 600;">
+    <td colspan="2"><strong>TOTAL FLOOR REQUIREMENT</strong></td>
+    <td><strong>~16 sq ft</strong></td>
+    <td><strong>~336 lbs</strong></td>
+  </tr>
+</table>
+
+<h3>Updated Minimum Closet Specifications</h3>
+
+<p><strong>Side-by-Side Layout (Recommended):</strong></p>
+<ul>
+  <li>Width: 86" (7.2 ft) - accommodates rack (48") + cup stack (38")</li>
+  <li>Depth: 40" (3.3 ft) - accommodates deeper cup dimension (37") + 3" clearance</li>
+  <li>Height: 78" (6.5 ft) - accommodates rack height (72") + 6" clearance</li>
+</ul>
+
+<p><strong>L-Shaped Layout (Space-Constrained Sites):</strong></p>
+<ul>
+  <li>Width: 48" (4 ft) - rack only</li>
+  <li>Depth: 55" (4.6 ft) - rack (18") + cup stack perpendicular (37")</li>
+  <li>Height: 78" (6.5 ft)</li>
+</ul>
+
+<div class="mandatory-box">
+  <strong>CRITICAL UPDATE:</strong> Previous manual Section 5 estimated cup stack at 24"W × 24"D based on preliminary specs. Factory carton data confirms actual footprint is 38"W × 37"D. All site planning must use updated 38" × 37" dimensions. Minimum closet width increases from 72" to 86" for side-by-side layout.
+</div>
+
+<h2>Implementation Notes for v101</h2>
+
+<p><strong>Action Items:</strong></p>
+<ol>
+  <li>Update all site assessment forms with corrected 38" × 37" cup footprint</li>
+  <li>Revise landlord space requirement communications (86" width, not 72")</li>
+  <li>Update PARTNER training materials with 36.4 lb total cup weight (not 13 lbs)</li>
+  <li>Confirm factory seal integrity standards with supplier</li>
+  <li>Test 2×2 stack stability with actual cartons at 3 pilot sites</li>
+</ol>
+
+---
+
+<p style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--primary); color: var(--text-medium); font-size: 9pt;">
+  <strong>END OF ADDENDUM - SIPJOLT Operations Manual v100 FINAL</strong><br>
+  Addendum A: Board Decision Matrix (Leadership Audit Response)<br>
+  Addendum B: CARTON E Detailed Specifications (90-Day Cycle Rationale + Factory Data)<br>
+  Last Updated: January 22, 2026 | Next Revision: v101 (Post-Pilot Integration)
+</p>
+
+</body>
+</html>
